@@ -14,3 +14,4 @@ end
 
 c = Crawler.new(url)
 c.run_crawler
+c.print_results
