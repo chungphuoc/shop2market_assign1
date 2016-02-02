@@ -22,14 +22,14 @@ describe Crawler do
     it 'success crawl website' do
       allow(@crawler).to receive(:is_valid_link?).and_return(true)
       @crawler.run_crawler
-      expect(@crawler.print_results).to eq [{"./spec/shop2market.html"=>4}]
+      expect(@crawler.print_results).to eq ({"./spec/shop2market.html"=>4})
     end
   end
 
   describe 'action print_results' do
     it 'print the output result' do
       @crawler.run_crawler
-      expect(@crawler.send(:print_results)).to eq @crawler.run_crawler
+      expect(@crawler.send(:print_results)).to eq ({"./spec/shop2market.html"=>4})
     end
   end
 end

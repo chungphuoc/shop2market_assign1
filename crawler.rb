@@ -4,7 +4,7 @@ class Crawler
   def initialize(url)
     @url = url
     @doc = Nokogiri::HTML(open(@url))
-    @results = []
+    @result = {}
     @visited_url = [url]
   end
 
@@ -13,9 +13,8 @@ class Crawler
       Timeout::timeout(100) do
         puts "Crawling : #{url} & child pages are in process. Please wait..."
         pages = 1
-        @count_input = {}
-        @count_input[url] = 0
-        @count_input[url] += @doc.xpath('//input').count
+        @result[url] = 0
+        @result[url] += @doc.xpath('//input').count
         while pages < 50 do
           pages += 1
           level = 0
@@ -26,7 +25,7 @@ class Crawler
               level += 1
               break if level >= 3
               child_doc = Nokogiri::HTML(open(link))
-              @count_input[url] += child_doc.xpath('//input').count
+              @result[url] += child_doc.xpath('//input').count
               @visited_url << link
               mini_pages = child_doc.xpath('//a')
               mini_pages.each do |page|
@@ -35,29 +34,25 @@ class Crawler
                   level += 1
                   break if level >= 3
                   doc = Nokogiri::HTML(open(page))
-                  @count_input[url] += doc.xpath('//input').count
-                  @count_input[page] = doc.xpath('//input').count.to_s
+                  @result[url] += doc.xpath('//input').count
+                  @result[page] = doc.xpath('//input').count.to_s
                   pages += 1
                   @visited_url << page
                 end
               end
-              @count_input[link] = child_doc.xpath('//input').count.to_s
+              @result[link] = child_doc.xpath('//input').count.to_s
             end
           end
         end
-        @results.unshift(@count_input)
       end
     rescue
-      @results.unshift(@count_input)
     end
   end
 
   def print_results
-    puts "Results: Found #{@results.first.count} page(s)"
-    @results.each do |result|
-      result.each do |k, v|
-        puts "#{k} - #{v} inputs"
-      end
+    puts "Results: Found #{@result.count} page(s)"
+    @result.each do |k,v|
+      puts "#{k} - #{v} inputs"
     end
   end
 
