@@ -4,12 +4,11 @@ require 'uri'
 require 'net/http'
 require './crawler.rb'
 
-puts 'Input the website you want to crawl:'
+puts 'Please input the url you want to crawl:'
 url = gets.strip
 unless url =~ URI::regexp
-  puts 'Invalid url, using default url'
   url = 'http://shop2market.com/'
-  puts url
+  puts "Invalid url, crawling default url #{url}"
 end
 
 c = Crawler.new(url)

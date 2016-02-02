@@ -6,6 +6,4 @@ group :development, :test do
   gem 'rspec-core'
   gem 'rspec-expectations'
   gem 'simplecov', require: false
-  gem 'fuubar'
-  gem 'ffaker'
 end
