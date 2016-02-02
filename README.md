@@ -51,10 +51,15 @@ faq.html - 5 inputs
 If you do not input the url on console. the crawler will run crawl with defaul url is: http://shop2market.com
 
 ***ruby program.rb
+
 Please input the url you want to crawl:
+
 http://tuoitre.vn/
+
 Crawling : http://tuoitre.vn/ & child pages are in process. Please wait...
+
 Results: Found 51 page(s)
+
 http://tuoitre.vn/ - 202 inputs
 
 http://tuoitre.vn/tin/tuoi-tre-cuoi-tuan/van-de-su-kien - 4 inputs
